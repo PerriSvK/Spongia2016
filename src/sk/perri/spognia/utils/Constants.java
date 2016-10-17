@@ -10,13 +10,13 @@ public class Constants
 
     public static final float VIEWPORT_WIDTH = 15.0f; //in hugs
     public static final float VIEWPORT_HEIGHT = 15.0f; //in hugs
-    public static final float CLOVEK_SPEED = 40f; // hugs per second
+    public static final float CLOVEK_SPEED = 20f; // hugs per second
     public static final float SCALE_VEC = 0.5f; // hug
     public static final float SCALE_CLOVEK = 1.7f; // hug
 
-    public static final int BLOCK_WIDTH = 10; //real block width in px, this value = 1 hug
-    public static final int BLOCK_HEIGHT = 10; //real block height in px
-    public static final int CHUNK_SIZE = 36; //blocks -> must be square number n^2
+    public static final int BLOCK_WIDTH = 30; //real block width in px, this value = 1 hug
+    public static final int BLOCK_HEIGHT = 30; //real block height in px
+    public static final int CHUNK_SIZE = 64; //blocks -> must be square number n^2
     public static final int CHUNK_LEN = (int) Math.round(Math.sqrt(CHUNK_SIZE));
 
     public static final int CONTROL_UP = Input.KEY_W;
