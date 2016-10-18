@@ -91,8 +91,5 @@ public class Clovek extends Entit
         return false;
     }
 
-    public Point getDelta()
-    {
-        return delta;
-    }
+    public Point getDelta() { return delta; }
 }
