@@ -35,7 +35,7 @@ public class Level
         ja.setVisible(true);
         mapa = new Mapa(mapTexture);
         mapa.loadMap();
-        camera = new Camera();
+        camera = new Camera(0, 0, mapTexture.getWidth(), mapTexture.getHeight());
     }
     
     public void update(GameContainer container, int delta)
@@ -47,25 +47,37 @@ public class Level
         if(smer != 0)
         {
             float spee = delta*Constants.BLOCK_WIDTH*Constants.CLOVEK_SPEED/1000;
+            float smerUhol = -1;
+
             switch(smer)
             {
-                /*case 1: ja.move(Clovek.SMER_HORE, delta); break;
-                case -1: ja.move(Clovek.SMER_DOLE, delta); break;
-                case 3: ja.move(Clovek.SMER_VPRAVO, delta); break;
-                case -3: ja.move(Clovek.SMER_VLAVO, delta); break;
-
-                case 4: ja.move(315, delta); break;
-                case -4: ja.move(135, delta); break;
-                case 2: ja.move(45, delta); break;
-                case -2: ja.move(225, delta); break;*/
-
-                case 1: camera.moveCamera(Clovek.SMER_HORE, spee); mapa.load(Clovek.SMER_HORE, camera); break;
-                case -1: camera.moveCamera(Clovek.SMER_DOLE, spee); mapa.load(Clovek.SMER_DOLE, camera); break;
-                case 3: camera.moveCamera(Clovek.SMER_VPRAVO, spee); mapa.load(Clovek.SMER_VPRAVO, camera); break;
-                case -3: camera.moveCamera(Clovek.SMER_VLAVO, spee); mapa.load(Clovek.SMER_VLAVO, camera); break;
+                case 1: smerUhol = Clovek.SMER_HORE; break;
+                case -1: smerUhol = Clovek.SMER_DOLE; break;
+                case 3: smerUhol = Clovek.SMER_VPRAVO; break;
+                case -3: smerUhol = Clovek.SMER_VLAVO; break;
             }
 
-            //trans.add(ja.getDelta());
+            if(!ja.isNearEdge(smerUhol, camera))//mapa.canMoveMap(smerUhol))//&& (ja.isCenterX(camera) || ja.isCenterY(camera)))
+            {
+                switch (smer)
+                {
+                    case 1: camera.moveCamera(Clovek.SMER_HORE, spee); mapa.load(Clovek.SMER_HORE, camera); break;
+                    case -1: camera.moveCamera(Clovek.SMER_DOLE, spee); mapa.load(Clovek.SMER_DOLE, camera); break;
+                    case 3: camera.moveCamera(Clovek.SMER_VPRAVO, spee); mapa.load(Clovek.SMER_VPRAVO, camera); break;
+                    case -3: camera.moveCamera(Clovek.SMER_VLAVO, spee); mapa.load(Clovek.SMER_VLAVO, camera); break;
+                }
+            }
+            else
+            {
+                Constants.print("Level, move with player!");
+                switch (smer)
+                {
+                    case 1: ja.move(Clovek.SMER_HORE, delta); break;
+                    case -1: ja.move(Clovek.SMER_DOLE, delta); break;
+                    case 3: ja.move(Clovek.SMER_VPRAVO, delta); break;
+                    case -3: ja.move(Clovek.SMER_VLAVO, delta); break;
+                }
+            }
         }
     }
     

@@ -63,13 +63,13 @@ public class Mapa
                 return;
             }
 
-            if(RD.getX() + 1 > dataTexture.getWidth())
+            if(RD.getX()*Constants.CHUNK_LEN + 1 > dataTexture.getWidth())
             {
                 Constants.print("Nerobim lebo OUT a pod:", RD.getX() + 1, ">", dataTexture.getWidth());
                 return;
             }
 
-            for(int i = (int) LU.getY() - 1; i < RD.getY() + 1; i++)
+            for(int i = (int) LU.getY() - 2; i < RD.getY() + 2; i++)
             {
                 if(i >= 0 && i < dataTexture.getHeight())
                 {
@@ -90,12 +90,12 @@ public class Mapa
             if(rPosY / (Constants.BLOCK_HEIGHT*Constants.CHUNK_LEN) + 1 < RD.getY())
                 return;
 
-            if(RD.getY() + 1 > dataTexture.getHeight())
+            if(RD.getY()*Constants.CHUNK_LEN + 1 > dataTexture.getHeight())
                 return;
 
-            for(int i = (int) LU.getX()-1; i < RD.getX()+1; i++)
+            for(int i = (int) LU.getX()-2; i < RD.getX()+2; i++)
             {
-                if(i >= 0 && i < dataTexture.getWidth())
+                if(i >= 0 && i - 1 < dataTexture.getWidth())
                 loadChunk(i, (int) RD.getY());
             }
             if(RD.getX() - LU.getX() <= Constants.WINDOW_WIDTH / (Constants.CHUNK_LEN*Constants.BLOCK_WIDTH) + 1)
@@ -121,7 +121,7 @@ public class Mapa
 
             Constants.print("LEFT", LU.getX(), LU.getY());
 
-            for(int i = (int) LU.getY()-1; i < RD.getY()+1; i++)
+            for(int i = (int) LU.getY()-2; i < RD.getY()+2; i++)
             {
                 if(i >= 0 && i < dataTexture.getHeight())
                 {
@@ -143,7 +143,7 @@ public class Mapa
             if(RD.getY() - 1 <= 0)
                 return;
 
-            for(int i = (int) LU.getX() - 1; i < RD.getX() + 1; i++)
+            for(int i = (int) LU.getX() - 2; i < RD.getX() + 2; i++)
             {
                 if(i >= 0 && i < dataTexture.getWidth())
                     loadChunk(i, (int) LU.getY());
@@ -153,6 +153,18 @@ public class Mapa
             LLU.setY(LLU.getY()-1);
             RD.setY(RD.getY()-1);
         }
+    }
+
+    public boolean canMoveMap(float dir)
+    {
+        if(dir == -1)
+            return false;
+
+        boolean vys1 = LU.getX() + Math.cos(Math.toRadians(dir)) > 0 &&
+                RD.getX() + Math.cos(Math.toRadians(dir)) < dataTexture.getWidth();
+        boolean vys2 = LU.getY() + Math.sin(Math.toRadians(dir)) > 0 &&
+                RD.getY() + Math.sin(Math.toRadians(dir)) < dataTexture.getHeight();
+        return vys1 && vys2;
     }
 
     public void loadChunk(int x, int y)
